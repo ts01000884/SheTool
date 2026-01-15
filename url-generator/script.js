@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
         salesCodeInput.value = localStorage.getItem(SALES_CODE_KEY) || '';
     }
     if (!campaignCodeInput.value) {
-        campaignCodeInput.value = localStorage.getItem(CAMPAIGN_CODE_KEY) || '';
+        campaignCodeInput.value = localStorage.getItem(CAMPAIGN_CODE_KEY) || '00001';
     }
 
 
@@ -160,7 +160,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
     });
-    
+
     // 6. Helper functions
     function escapeHTML(str) {
         const p = document.createElement("p");
