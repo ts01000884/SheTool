@@ -128,14 +128,22 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
+        // 根據特定網址強制使用對應的 campaign_code
+        let finalCampaignCode = campaignCode;
+        if (targetUrl.includes('hamibook.tw/staff/')) {
+            finalCampaignCode = '2026exhibition';
+        } else if (targetUrl.includes('omia.tw/staff/')) {
+            finalCampaignCode = 'omiaplus';
+        }
+
         // 加入推廣參數
         if (salesCode) url.searchParams.set('sales_code', salesCode);
-        if (campaignCode) url.searchParams.set('campaign_code', campaignCode);
+        if (finalCampaignCode) url.searchParams.set('campaign_code', finalCampaignCode);
 
         // 加入 UTM 參數
         url.searchParams.set('utm_source', 'staff');
         url.searchParams.set('utm_medium', 'share');
-        if (campaignCode) url.searchParams.set('utm_campaign', campaignCode);
+        if (finalCampaignCode) url.searchParams.set('utm_campaign', finalCampaignCode);
         if (salesCode) url.searchParams.set('utm_content', salesCode);
 
         const finalUrl = url.toString();
