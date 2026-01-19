@@ -1,4 +1,14 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const toggleInstructionsBtn = document.getElementById('toggle-instructions-btn');
+    const instructionsContent = document.getElementById('instructions-content');
+
+    if (toggleInstructionsBtn && instructionsContent) {
+        toggleInstructionsBtn.addEventListener('click', () => {
+            const isExpanded = toggleInstructionsBtn.getAttribute('aria-expanded') === 'true';
+            toggleInstructionsBtn.setAttribute('aria-expanded', !isExpanded);
+            instructionsContent.hidden = isExpanded;
+        });
+    }
     const form = document.getElementById('url-generator-form');
     const targetUrlInput = document.getElementById('target-url');
     const salesCodeInput = document.getElementById('sales-code');

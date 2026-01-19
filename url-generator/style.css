@@ -216,3 +216,57 @@ button.copied {
 .clear-btn:hover {
     background-color: #c82333;
 }
+
+/* Instructions Section Styles */
+.instructions-section {
+    margin-bottom: 25px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background-color: #f8f9fa;
+}
+
+.instructions-title button {
+    width: 100%;
+    background: none;
+    border: none;
+    padding: 15px 20px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    text-align: left;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.instructions-title button:hover {
+    background-color: #e9ecef;
+}
+
+.toggle-icon {
+    transition: transform 0.3s ease;
+}
+
+button[aria-expanded="true"] .toggle-icon {
+    transform: rotate(180deg);
+}
+
+.instructions-content {
+    padding: 0 20px 20px;
+    color: var(--text-color);
+    line-height: 1.7;
+}
+
+.instructions-content ol {
+    padding-left: 20px;
+    margin: 0;
+}
+
+.instructions-content li {
+    margin-bottom: 15px;
+}
+
+.instructions-content p {
+    margin: 5px 0 0;
+}
