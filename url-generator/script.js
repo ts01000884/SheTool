@@ -23,15 +23,19 @@ document.addEventListener('DOMContentLoaded', () => {
         salesCodeInput.value = initParams.get('sales_code');
     }
     if (initParams.has('campaign_code')) {
-        campaignCodeInput.value = initParams.get('campaign_code');
+        const campaignValue = initParams.get('campaign_code');
+        if (campaignCodeInput.querySelector(`option[value="${campaignValue}"]`)) {
+            campaignCodeInput.value = campaignValue;
+        }
     }
 
     // 如果 URL 沒有提供，則從 localStorage 載入上次儲存的編號
     if (!salesCodeInput.value) {
         salesCodeInput.value = localStorage.getItem(SALES_CODE_KEY) || '';
     }
-    if (!campaignCodeInput.value) {
-        campaignCodeInput.value = localStorage.getItem(CAMPAIGN_CODE_KEY) || '00001';
+    const savedCampaign = localStorage.getItem(CAMPAIGN_CODE_KEY);
+    if (savedCampaign && campaignCodeInput.querySelector(`option[value="${savedCampaign}"]`)) {
+        campaignCodeInput.value = savedCampaign;
     }
 
 
@@ -81,8 +85,15 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
+        // 加入推廣參數
         if (salesCode) url.searchParams.set('sales_code', salesCode);
         if (campaignCode) url.searchParams.set('campaign_code', campaignCode);
+
+        // 加入 UTM 參數
+        url.searchParams.set('utm_source', 'staff');
+        url.searchParams.set('utm_medium', 'share');
+        if (campaignCode) url.searchParams.set('utm_campaign', campaignCode);
+        if (salesCode) url.searchParams.set('utm_content', salesCode);
 
         const finalUrl = url.toString();
 
