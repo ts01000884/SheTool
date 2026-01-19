@@ -64,10 +64,43 @@ header p {
     font-size: 1rem;
 }
 
-.form-group input:focus {
+.form-group input:focus,
+.form-group select:focus {
     outline: none;
     border-color: var(--primary-color);
     box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+.form-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 1rem;
+    background-color: white;
+    cursor: pointer;
+}
+
+.preset-urls {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 8px;
+}
+
+.preset-url-btn {
+    padding: 6px 12px !important;
+    font-size: 0.85rem !important;
+    background-color: #e9ecef !important;
+    color: var(--text-color) !important;
+    border: 1px solid var(--border-color) !important;
+    width: auto !important;
+}
+
+.preset-url-btn:hover {
+    background-color: var(--primary-color) !important;
+    color: white !important;
+    border-color: var(--primary-color) !important;
 }
 
 .form-buttons {

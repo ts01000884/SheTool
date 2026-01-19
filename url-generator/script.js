@@ -64,17 +64,60 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // 預設網址按鈕功能
+    const STAFF_URL_PATTERNS = ['hamibook.tw/staff/', 'omia.tw/staff/'];
+    const presetUrlBtns = document.querySelectorAll('.preset-url-btn');
+
+    presetUrlBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const baseUrl = btn.dataset.url;
+            const salesCode = salesCodeInput.value.trim();
+            // 如果已有 sales_code，就補上
+            targetUrlInput.value = baseUrl + salesCode;
+        });
+    });
+
+    // 當 sales_code 變更時，如果網址是特定格式，自動更新
+    salesCodeInput.addEventListener('input', () => {
+        const currentUrl = targetUrlInput.value.trim();
+        const salesCode = salesCodeInput.value.trim();
+
+        for (const pattern of STAFF_URL_PATTERNS) {
+            if (currentUrl.includes(pattern)) {
+                // 取得 base URL (到 /staff/ 為止)
+                const baseIndex = currentUrl.indexOf(pattern) + pattern.length;
+                const baseUrl = currentUrl.substring(0, baseIndex);
+                targetUrlInput.value = baseUrl + salesCode;
+                break;
+            }
+        }
+    });
+
     // 3. 表單提交事件 (產生推廣網址)
     form.addEventListener('submit', (e) => {
         e.preventDefault();
 
-        const targetUrl = targetUrlInput.value.trim();
+        let targetUrl = targetUrlInput.value.trim();
         const salesCode = salesCodeInput.value.trim();
         const campaignCode = campaignCodeInput.value.trim();
 
         if (!targetUrl) {
             alert('請填寫要分享的網址！');
             return;
+        }
+
+        // 檢查是否為特定 staff 網址，需要補上 sales_code
+        for (const pattern of STAFF_URL_PATTERNS) {
+            if (targetUrl.includes(pattern)) {
+                const baseIndex = targetUrl.indexOf(pattern) + pattern.length;
+                const baseUrl = targetUrl.substring(0, baseIndex);
+                // 確保 sales_code 有補上
+                if (salesCode && !targetUrl.endsWith(salesCode)) {
+                    targetUrl = baseUrl + salesCode;
+                    targetUrlInput.value = targetUrl;
+                }
+                break;
+            }
         }
 
         let url;
